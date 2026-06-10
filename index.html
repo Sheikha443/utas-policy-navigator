@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>UTAS GenAI Policy Navigator · مُرشد سياسة الذكاء الاصطناعي</title>
+<link rel="icon" href="assets/utas-logo.png" />
+<meta name="ext-resource-dependency" content="assets/utas-logo.png" data-resource-id="utasLogo" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500;1,6..72,600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { color-scheme: light; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background: #FAF7F1; color: #20233A;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  button { font-family: inherit; }
+  input, select, textarea { font-family: inherit; }
+  ::selection { background: #FC842433; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 11px; height: 11px; }
+  ::-webkit-scrollbar-thumb { background: #D9D0BE; border-radius: 99px; border: 3px solid #FAF7F1; }
+  ::-webkit-scrollbar-thumb:hover { background: #C9C0AE; }
+
+  /* entrance */
+  .fade-in { animation: fadeIn .42s cubic-bezier(.2,.7,.3,1) both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* ── scroll reveal ── */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); will-change: opacity, transform; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ── aurora drift (hero light) ── */
+  @keyframes auroraA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(8%,-6%) scale(1.18); } }
+  @keyframes auroraB { 0%,100% { transform: translate(0,0) scale(1.1); } 50% { transform: translate(-9%,7%) scale(.92); } }
+  .aurora-a { animation: auroraA 16s ease-in-out infinite; }
+  .aurora-b { animation: auroraB 20s ease-in-out infinite; }
+
+  /* ── floating geometry ── */
+  @keyframes floatY { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-22px) rotate(4deg); } }
+  @keyframes floatY2 { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(18px) rotate(-5deg); } }
+  @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .float-a { animation: floatY 9s ease-in-out infinite; }
+  .float-b { animation: floatY2 11s ease-in-out infinite; }
+  .spin-slow { animation: spinSlow 42s linear infinite; }
+
+  /* ── shimmer sweep on primary CTA ── */
+  @keyframes shimmer { 0% { transform: translateX(-140%) skewX(-20deg); } 60%,100% { transform: translateX(260%) skewX(-20deg); } }
+  .shine { position: relative; overflow: hidden; }
+  .shine::after { content:""; position:absolute; inset:0; width:38%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent); transform:translateX(-140%) skewX(-20deg); animation: shimmer 4.5s ease-in-out 1.2s infinite; pointer-events:none; }
+
+  /* ── pop in (hero content stagger) ── */
+  @keyframes popUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform:none; } }
+  .pop { opacity:0; animation: popUp .8s cubic-bezier(.2,.75,.3,1) forwards; }
+
+  /* ── soft pulse dot ── */
+  @keyframes pulseDot { 0%,100% { box-shadow:0 0 0 0 rgba(252,132,36,.55);} 50% { box-shadow:0 0 0 7px rgba(252,132,36,0);} }
+  .pulse-dot { animation: pulseDot 2.4s ease-in-out infinite; }
+
+  /* ── animated underline link feel ── */
+  @keyframes drawLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  /* ── nav / detector spinner ── */
+  @keyframes spinNav { to { transform: rotate(360deg); } }
+
+  /* ── typing dots (assistant) ── */
+  .typing { display:inline-flex; gap:4px; align-items:center; height:18px; }
+  .typing i { width:7px; height:7px; border-radius:99px; background:#7C8FD8; display:inline-block;
+    animation: typingBounce 1.2s ease-in-out infinite; }
+  .typing i:nth-child(2){ animation-delay:.18s; } .typing i:nth-child(3){ animation-delay:.36s; }
+  @keyframes typingBounce { 0%,60%,100%{ transform:translateY(0); opacity:.4; } 30%{ transform:translateY(-5px); opacity:1; } }
+
+  /* ── command center responsive ── */
+  @media (max-width: 860px) {
+    .cc-top { grid-template-columns: 1fr !important; }
+    .cc-mid, .cc-bot { grid-template-columns: 1fr !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in, .pop { animation: none !important; opacity:1 !important; transform:none !important; }
+    .aurora-a, .aurora-b, .float-a, .float-b, .spin-slow, .shine::after, .pulse-dot { animation: none !important; }
+    .reveal { opacity:1 !important; transform:none !important; }
+    * { transition: none !important; }
+  }
+
+  /* responsive nav */
+  .navlabel { white-space: nowrap; }
+  @media (max-width: 1080px) {
+    .navlabel { display: none; }
+  }
+  @media (max-width: 720px) {
+    .decl-grid { grid-template-columns: 1fr !important; }
+    .decl-grid > div:first-child { position: static !important; }
+    .auth-grid { grid-template-columns: 1fr !important; }
+    .auth-promo { display: none !important; }
+  }
+  @media (max-width: 600px) {
+    .dotlabel { display: none; }
+  }
+  @media (max-width: 520px) {
+    .topnav { gap: 0 !important; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="400" fill="#243090"/>
+    <g transform="translate(120 110)">
+      <path d="M86 4 L165 90 L165 195 Z" fill="#3C54A8"/>
+      <path d="M86 4 L165 90 L165 195 L86 110 Z" fill="#1B2068"/>
+      <path d="M4 78 H74 V150 A78 78 0 0 0 86 158 V78 Z" fill="#FC8424"/>
+      <path d="M4 78 H74 V150 A78 78 0 0 0 122 196 L86 158 A78 78 0 0 1 4 150 Z" fill="#E46C24"/>
+    </g>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  }
+</script>
+
+<script src="js/data.js"></script>
+<script src="js/institution-data.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/cloud.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/db.js"></script>
+<script src="js/detector.js"></script>
+<script type="text/babel" src="js/components.jsx"></script>
+<script type="text/babel" src="js/home.jsx"></script>
+<script type="text/babel" src="js/decision.jsx"></script>
+<script type="text/babel" src="js/declaration.jsx"></script>
+<script type="text/babel" src="js/compliance.jsx"></script>
+<script type="text/babel" src="js/library.jsx"></script>
+<script type="text/babel" src="js/command-center.jsx"></script>
+<script type="text/babel" src="js/assistant.jsx"></script>
+<script type="text/babel" src="js/report.jsx"></script>
+<script type="text/babel" src="js/portal-auth.jsx"></script>
+<script type="text/babel" src="js/portal.jsx"></script>
+<script type="text/babel" src="js/guide.jsx"></script>
+<script type="text/babel" src="js/app.jsx"></script>
+</body>
+</html>
