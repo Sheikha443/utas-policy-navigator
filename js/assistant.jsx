@@ -68,6 +68,20 @@ function Assistant({ lang }) {
     setInput("");
     setBusy(true);
 
+    // Always have a reliable offline answer ready (works on GitHub Pages).
+    const offline = window.BRAIN.answer(question, lang);
+
+    // If the live AI is available (design environment), use it for a richer
+    // reply; otherwise fall back to the offline brain — no error shown.
+    const hasLiveAI = !!(window.claude && typeof window.claude.complete === "function");
+    if (!hasLiveAI) {
+      // tiny delay so the typing indicator reads naturally
+      await new Promise(r => setTimeout(r, 350));
+      setMsgs(m => [...m, { role:"assistant", text: offline.text }]);
+      setBusy(false);
+      return;
+    }
+
     const sys = `You are the UTAS Nizwa AI-policy assistant. Answer ONLY using the university's 29 GenAI academic-integrity policy statements below. Be concise, practical and warm. Cite the relevant policy codes (e.g. S2, S16) inline. If asked in Arabic, answer fully in Arabic; if in English, answer in English. If something is outside these policies, say so briefly and suggest contacting the quality office.
 
 POLICIES:
@@ -79,12 +93,11 @@ ${buildContext()}`;
           { role:"user", content: `${sys}\n\nUSER QUESTION (${isAr ? "Arabic" : "English"}): ${question}` },
         ],
       });
-      setMsgs(m => [...m, { role:"assistant", text: (reply || "").trim() || (isAr?"تعذّر توليد إجابة.":"No answer generated.") }]);
+      const text = (reply || "").trim();
+      setMsgs(m => [...m, { role:"assistant", text: text || offline.text }]);
     } catch (e) {
-      setErr(true);
-      setMsgs(m => [...m, { role:"assistant", text: isAr
-        ? "تعذّر الوصول إلى المساعد الآن. جرّب مجدداً بعد قليل، أو راجع مكتبة السياسات."
-        : "Couldn't reach the assistant right now. Try again shortly, or check the Policy Library." }]);
+      // graceful fallback to the offline brain — still a real answer
+      setMsgs(m => [...m, { role:"assistant", text: offline.text }]);
     } finally { setBusy(false); }
   }
 

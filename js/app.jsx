@@ -8,6 +8,7 @@ function App() {
   const [route, setRoute] = React.useState("home");
   const [routeArg, setRouteArg] = React.useState(null);
   const [guideOpen, setGuideOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
   const isAr = lang === "ar";
 
   React.useEffect(() => {
@@ -17,7 +18,7 @@ function App() {
   }, [lang]);
 
   const go = (r, arg = null) => {
-    setRoute(r); setRouteArg(arg);
+    setRoute(r); setRouteArg(arg); setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -46,7 +47,7 @@ function App() {
               <div style={{ textAlign:isAr?"right":"left", lineHeight:1.18 }}>
                 <div style={{ fontFamily:"'Newsreader',serif", fontSize:16.5, fontWeight:600,
                   color:AC.ink, letterSpacing:-.3, whiteSpace:"nowrap" }}>{bi(AT.brand, lang)}</div>
-                <div style={{ fontSize:10.5, color:AC.warm, fontWeight:500, letterSpacing:.2,
+                <div className="brand-sub" style={{ fontSize:10.5, color:AC.warm, fontWeight:500, letterSpacing:.2,
                   whiteSpace:"nowrap" }}>
                   {isAr ? "التقنية والعلوم التطبيقية — نزوى" : "UTAS — Nizwa"}</div>
               </div>
@@ -75,7 +76,7 @@ function App() {
 
             {/* guide + lang toggle */}
             <button onClick={() => setGuideOpen(true)}
-              title={isAr ? "دليل الاستخدام" : "How it works"} style={{
+              title={isAr ? "دليل الاستخدام" : "How it works"} className="guide-btn" style={{
               marginInlineStart:8, display:"inline-flex", alignItems:"center", gap:7, flexShrink:0,
               background:AC.white, color:AC.navy, border:`1.5px solid ${AC.line}`, borderRadius:99,
               padding:"7px 14px", fontSize:13, fontWeight:600, cursor:"pointer", transition:"all .16s" }}
@@ -91,8 +92,43 @@ function App() {
               <Glyph name="globe" size={16} stroke={AC.white} />
               {isAr ? "EN" : "ع"}
             </button>
+
+            {/* hamburger (mobile only) */}
+            <button className="hamburger" aria-label="Menu" onClick={() => setMenuOpen(o => !o)} style={{
+              marginInlineStart:8, width:42, height:42, borderRadius:11, flexShrink:0,
+              background:AC.white, border:`1.5px solid ${AC.line}`, cursor:"pointer",
+              alignItems:"center", justifyContent:"center", color:AC.navy }}>
+              <Glyph name={menuOpen ? "close" : "menu"} size={20} />
+            </button>
           </div>
         </div>
+
+        {/* ── MOBILE DRAWER ── */}
+        {menuOpen && (
+          <div className="mobile-drawer" style={{ borderTop:`1px solid ${AC.line}`, background:AC.white,
+            padding:"10px 16px 16px", boxShadow:"0 16px 30px -16px rgba(32,35,58,.3)" }}>
+            <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:8 }}>
+              {NAV_ITEMS.map(n => {
+                const active = route === n.id;
+                return (
+                  <button key={n.id} onClick={() => go(n.id)} style={{
+                    display:"flex", alignItems:"center", gap:10, padding:"13px 14px", borderRadius:12,
+                    background: active ? AC.navy : AC.paper, cursor:"pointer", border:"none",
+                    color: active ? AC.white : AC.ink, fontSize:14, fontWeight:600, textAlign:"start" }}>
+                    <Glyph name={n.icon} size={19} stroke={active ? AC.white : AC.navy} />
+                    {bi(n.t, lang)}
+                  </button>
+                );
+              })}
+            </div>
+            <button onClick={() => { setMenuOpen(false); setGuideOpen(true); }} style={{
+              width:"100%", marginTop:8, display:"flex", alignItems:"center", justifyContent:"center", gap:9,
+              padding:"13px", borderRadius:12, background:`${AC.orange}14`, color:AC.rust, border:"none",
+              fontSize:14, fontWeight:600, cursor:"pointer" }}>
+              <Glyph name="info" size={18} stroke={AC.rust} />{isAr ? "دليل الاستخدام" : "How it works"}
+            </button>
+          </div>
+        )}
       </header>
 
       {/* ── BODY ── */}

@@ -39,6 +39,7 @@ function Glyph({ name, size = 24, stroke = "currentColor", width = 1.6, style })
     flag:       <><path d="M5 21V4"/><path d="M5 5h11l-2 3 2 3H5"/></>,
     info:       <><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5h.01"/></>,
     close:      <><path d="M6 6l12 12M18 6L6 18"/></>,
+    menu:       <><path d="M4 7h16M4 12h16M4 17h16"/></>,
     play:       <><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5Z" fill={stroke}/></>,
   };
   return <svg {...p}>{paths[name] || paths.spark}</svg>;
