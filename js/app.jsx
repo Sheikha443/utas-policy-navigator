@@ -29,6 +29,7 @@ function App() {
     { id:"declaration", t:AT.nav_decl,      icon:"doc" },
     { id:"compliance",  t:AT.nav_comp,      icon:"gauge" },
     { id:"library",     t:AT.nav_lib,       icon:"grid" },
+    { id:"faq",         t:AT.nav_faq,       icon:"info" },
     { id:"assistant",   t:AT.nav_assistant, icon:"spark" },
     { id:"portal",      t:AT.nav_portal,    icon:"shield" },
   ];
@@ -140,6 +141,7 @@ function App() {
         {route === "declaration" && <DeclarationModule lang={lang} />}
         {route === "compliance" && <ComplianceModule lang={lang} initialFilter={routeArg?.filter} />}
         {route === "library" && <LibraryModule lang={lang} initialDomain={routeArg?.domain} />}
+        {route === "faq" && <FAQModule lang={lang} go={go} />}
         {route === "assistant" && <Assistant lang={lang} />}
         {route === "portal" && <StudentPortal lang={lang} go={go} />}
       </main>

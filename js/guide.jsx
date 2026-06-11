@@ -29,6 +29,10 @@ const GUIDE_ITEMS = [
     en:"AI Assistant", ar:"المساعد الذكي",
     enD:"Ask any question about the policy in Arabic or English. The assistant answers grounded in all 29 statements and points you to the relevant ones.",
     arD:"اسأل أي سؤال عن السياسة بالعربية أو الإنجليزية. يجيب المساعد استناداً إلى البنود الـ٢٩ ويرشدك إلى المعنيّ منها." },
+  { id:"faq", icon:"info", accent:GC.blue,
+    en:"FAQ & common situations", ar:"الأسئلة الشائعة والمواقف",
+    enD:"Quick answers to the most common AI-usage questions, plus scenario-based case studies inside the decision guide — ideal for those new to the policy.",
+    arD:"إجابات سريعة لأكثر أسئلة استخدام الذكاء الاصطناعي شيوعاً، مع حالات دراسية واقعية داخل دليل القرار — مثالية لمن هم جدد على السياسة." },
 ];
 
 function GuideOverlay({ lang, onClose, go }) {

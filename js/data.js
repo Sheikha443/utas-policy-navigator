@@ -338,6 +338,7 @@
     nav_lib:      { en:"Policy Library", ar:"مكتبة السياسات" },
     nav_assistant:{ en:"AI Assistant", ar:"المساعد الذكي" },
     nav_portal:   { en:"Student Portal", ar:"بوابة الطالب" },
+    nav_faq:      { en:"FAQ", ar:"أسئلة شائعة" },
     cta_start:    { en:"Check my situation", ar:"افحص حالتي" },
     cta_explore:  { en:"Explore the policies", ar:"استكشف السياسات" },
     stat_policies:{ en:"Policy statements", ar:"بند سياسة" },

@@ -323,6 +323,31 @@ function Home({ lang, go }) {
         </div>
       </section>
 
+      <section style={{ marginBottom:46 }}>
+        <Reveal><Eyebrow color={HC.rust}>{isAr ? "جديد · تعلَّم بالمثال" : "New · Learn by example"}</Eyebrow>
+          <h2 style={{ fontFamily:"'Newsreader',serif", fontSize:"clamp(26px,3.2vw,36px)", fontWeight:600,
+            color:HC.ink, marginBottom:24, letterSpacing:-.8 }}>
+            {isAr ? "حالات واقعية وأسئلة شائعة" : "Real cases & common questions"}
+          </h2>
+        </Reveal>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(260px,1fr))", gap:17 }}>
+          <Reveal>
+            <ToolCard icon="book" accent={HC.royal} lang={lang} index={5} onClick={()=>go("decision")}
+              kicker={{en:"Case studies",ar:"حالات دراسية"}}
+              title={{en:"Learn from real scenarios",ar:"تعلَّم من مواقف حقيقية"}}
+              desc={{en:"Six academic case studies showing exactly how the policies apply — inside the decision guide.",
+                     ar:"ست حالات أكاديمية تبيّن بالضبط كيف تُطبَّق السياسات — داخل دليل القرار."}} />
+          </Reveal>
+          <Reveal delay={80}>
+            <ToolCard icon="info" accent={HC.blue} lang={lang} index={6} onClick={()=>go("faq")}
+              kicker={{en:"FAQ",ar:"أسئلة شائعة"}}
+              title={{en:"Common AI-usage questions",ar:"أسئلة استخدام الذكاء الاصطناعي"}}
+              desc={{en:"Quick, plain answers to the questions students and faculty ask most about GenAI policy.",
+                     ar:"إجابات سريعة وواضحة لأكثر ما يسأله الطلاب وهيئة التدريس عن سياسة الذكاء الاصطناعي."}} />
+          </Reveal>
+        </div>
+      </section>
+
       <section>
         <Reveal><Eyebrow color={HC.royal}>{isAr ? "ستة مجالات" : "Six domains"}</Eyebrow>
           <h2 style={{ fontFamily:"'Newsreader',serif", fontSize:"clamp(26px,3.2vw,36px)", fontWeight:600,

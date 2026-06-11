@@ -178,8 +178,93 @@ function Verdict({ result, lang, reset, go }) {
   );
 }
 
+function CaseCard({ cs, lang, expanded, onToggle }) {
+  const isAr = lang === "ar";
+  const tone = { green:"#2E7D5B", amber:DC.orange, rust:DC.rust }[cs.tone];
+  const toneBg = { green:"#EAF5EF", amber:"#FFF3E3", rust:"#FBECE4" }[cs.tone];
+  return (
+    <div style={{ background:DC.white, borderRadius:18, border:`1px solid ${expanded?tone:DC.line}`,
+      overflow:"hidden", transition:"border-color .2s", boxShadow: expanded?`0 18px 40px -26px ${tone}88`:"0 1px 2px rgba(32,35,58,.04)" }}>
+      <button onClick={onToggle} style={{ width:"100%", textAlign:isAr?"right":"left", background:"none",
+        border:"none", cursor:"pointer", padding:"18px 20px", display:"flex", gap:15, alignItems:"center" }}>
+        <div style={{ width:46, height:46, borderRadius:13, background:toneBg, color:tone, flexShrink:0,
+          display:"flex", alignItems:"center", justifyContent:"center" }}>
+          <Glyph name={cs.icon} size={23} width={2} /></div>
+        <div style={{ flex:1, minWidth:0 }}>
+          <div style={{ display:"flex", alignItems:"center", gap:9, flexWrap:"wrap", marginBottom:3 }}>
+            <span style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:11, fontWeight:600, color:DC.warm }}>{cs.id}</span>
+            <span style={{ fontFamily:"'Newsreader',serif", fontSize:18, fontWeight:600, color:DC.ink, lineHeight:1.2 }}>
+              {isAr?cs.titleAr:cs.titleEn}</span>
+          </div>
+          <div style={{ fontSize:12.5, color:DC.slate }}>{isAr?cs.personaAr:cs.personaEn}</div>
+        </div>
+        <Glyph name={expanded?"arrowL":"arrowR"} size={18} style={{ color:tone, flexShrink:0,
+          transform: expanded?"rotate(90deg)":"none", transition:"transform .25s" }} />
+      </button>
+      {expanded && (
+        <div className="fade-in" style={{ padding:"0 20px 20px", display:"flex", flexDirection:"column", gap:13 }}>
+          <div style={{ fontSize:14.5, color:DC.ink, lineHeight:1.65, fontStyle:"italic",
+            paddingInlineStart:14, borderInlineStart:`3px solid ${DC.line}` }}>
+            {isAr?cs.situationAr:cs.situationEn}</div>
+          <div style={{ background:toneBg, borderRadius:12, padding:"14px 16px" }}>
+            <div style={{ fontFamily:"'IBM Plex Mono',monospace", fontSize:10.5, fontWeight:600, letterSpacing:1.5,
+              textTransform:"uppercase", color:tone, marginBottom:6 }}>{isAr?"النتيجة":"Outcome"}</div>
+            <div style={{ fontSize:14, color:DC.ink, lineHeight:1.6 }}>{isAr?cs.outcomeAr:cs.outcomeEn}</div>
+          </div>
+          <div style={{ display:"flex", gap:11, alignItems:"flex-start" }}>
+            <span style={{ color:"#2E7D5B", flexShrink:0, marginTop:1 }}><Glyph name="check" size={18} width={2.4} stroke="#2E7D5B"/></span>
+            <div style={{ fontSize:14, color:DC.ink, lineHeight:1.6 }}>
+              <b>{isAr?"ما الصواب: ":"What to do: "}</b>{isAr?cs.doAr:cs.doEn}</div>
+          </div>
+          <div style={{ display:"flex", gap:8, flexWrap:"wrap", paddingTop:4 }}>
+            {cs.refs.map(id => {
+              const p = DPMAP[id];
+              return (
+                <span key={id} style={{ display:"inline-flex", alignItems:"center", gap:7, background:DC.paper,
+                  border:`1px solid ${DC.line}`, borderRadius:9, padding:"6px 11px", fontSize:12 }}>
+                  <b style={{ fontFamily:"'IBM Plex Mono',monospace", color:DC.navy }}>{id}</b>
+                  <span style={{ color:DC.slate }}>{isAr?p.ar:p.short}</span>
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CaseStudies({ lang }) {
+  const isAr = lang === "ar";
+  const [open, setOpen] = React.useState("CS1");
+  const [filter, setFilter] = React.useState("all");
+  const cases = window.SCEN.CASES.filter(c => filter==="all" || c.role===filter);
+  const roles = [["all",isAr?"الكل":"All"],["student",isAr?"طلاب":"Students"],["faculty",isAr?"هيئة تدريس":"Faculty"],["researcher",isAr?"باحثون":"Researchers"]];
+  return (
+    <div className="fade-in">
+      <p style={{ ...hSub, maxWidth:600 }}>
+        {isAr ? "أمثلة واقعية تبيّن كيف تُطبَّق السياسات في مواقف أكاديمية حقيقية. اضغط أي حالة لقراءة النتيجة."
+              : "Real examples showing how the policies apply in actual academic situations. Tap any case to read the outcome."}</p>
+      <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginBottom:20 }}>
+        {roles.map(([v,l]) => (
+          <button key={v} onClick={()=>setFilter(v)} style={{ padding:"7px 15px", borderRadius:99, fontSize:13,
+            fontWeight:600, cursor:"pointer", background: filter===v?DC.navy:DC.white, color: filter===v?DC.white:DC.slate,
+            border:`1.5px solid ${filter===v?DC.navy:DC.line}`, transition:"all .16s" }}>{l}</button>
+        ))}
+      </div>
+      <div style={{ display:"flex", flexDirection:"column", gap:12 }}>
+        {cases.map(cs => (
+          <CaseCard key={cs.id} cs={cs} lang={lang} expanded={open===cs.id}
+            onToggle={()=>setOpen(o => o===cs.id ? null : cs.id)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DecisionModule({ lang, go }) {
   const isAr = lang === "ar";
+  const [tab, setTab] = React.useState("guided");
   const [step, setStep] = React.useState(0);
   const [role, setRole] = React.useState(null);
   const [ctx, setCtx] = React.useState(null);
@@ -190,8 +275,25 @@ function DecisionModule({ lang, go }) {
     ? ["مَن أنت؟", "بمَ تعمل؟", "كيف تستخدم الذكاء الاصطناعي؟"]
     : ["Who are you?", "What are you working on?", "How are you using AI?"];
 
+  const tabBtn = (id, label, icon) => (
+    <button onClick={()=>setTab(id)} style={{ display:"inline-flex", alignItems:"center", gap:8,
+      padding:"10px 18px", borderRadius:11, fontSize:14, fontWeight:600, cursor:"pointer", border:"none",
+      background: tab===id?DC.white:"transparent", color: tab===id?DC.navy:DC.slate,
+      boxShadow: tab===id?"0 2px 8px rgba(32,35,58,.1)":"none", transition:"all .16s" }}>
+      <Glyph name={icon} size={17} width={tab===id?1.9:1.6} />{label}
+    </button>
+  );
+
   return (
     <div className="fade-in">
+      <div style={{ display:"inline-flex", gap:4, padding:4, background:DC.cream, borderRadius:14,
+        marginBottom:28, flexWrap:"wrap" }}>
+        {tabBtn("guided", isAr?"فحص موجَّه":"Guided check", "compass")}
+        {tabBtn("cases", isAr?"حالات دراسية":"Case studies", "book")}
+      </div>
+
+      {tab === "cases" ? <CaseStudies lang={lang} /> : (
+      <>
       <StepDots step={step} lang={lang} />
 
       {step === 0 && (
@@ -222,6 +324,8 @@ function DecisionModule({ lang, go }) {
       )}
 
       {step === 3 && result && <Verdict result={result} lang={lang} reset={reset} go={go} />}
+      </>
+      )}
     </div>
   );
 }
