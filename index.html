@@ -90,8 +90,16 @@
 
   /* responsive nav */
   .navlabel { white-space: nowrap; }
+  .hamburger { display: none; }
+  .mobile-drawer { display: none; }
   @media (max-width: 1080px) {
     .navlabel { display: none; }
+  }
+  @media (max-width: 860px) {
+    .topnav { display: none !important; }
+    .guide-btn { display: none !important; }
+    .hamburger { display: inline-flex !important; }
+    .mobile-drawer { display: block; animation: fadeIn .2s ease both; }
   }
   @media (max-width: 720px) {
     .decl-grid { grid-template-columns: 1fr !important; }
@@ -102,8 +110,8 @@
   @media (max-width: 600px) {
     .dotlabel { display: none; }
   }
-  @media (max-width: 520px) {
-    .topnav { gap: 0 !important; }
+  @media (max-width: 400px) {
+    .brand-sub { display: none; }
   }
 </style>
 </head>
@@ -148,6 +156,7 @@
 <script type="text/babel" src="js/compliance.jsx"></script>
 <script type="text/babel" src="js/library.jsx"></script>
 <script type="text/babel" src="js/command-center.jsx"></script>
+<script src="js/assistant-brain.js"></script>
 <script type="text/babel" src="js/assistant.jsx"></script>
 <script type="text/babel" src="js/report.jsx"></script>
 <script type="text/babel" src="js/portal-auth.jsx"></script>
