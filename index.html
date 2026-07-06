@@ -6,6 +6,14 @@
 <title>UTAS GenAI Policy Navigator · مُرشد سياسة الذكاء الاصطناعي</title>
 <link rel="icon" href="assets/utas-logo.png" />
 <meta name="ext-resource-dependency" content="assets/utas-logo.png" data-resource-id="utasLogo" />
+<meta name="description" content="UTAS GenAI Policy Navigator — 29 expert-consensus AI academic-integrity policies for UTAS Nizwa, turned into everyday bilingual guidance. مُرشد سياسة الذكاء الاصطناعي: ٢٩ توصية توافقية في أداة عملية ثنائية اللغة." />
+<meta name="theme-color" content="#243090" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="UTAS GenAI Policy Navigator · مُرشد سياسة الذكاء الاصطناعي" />
+<meta property="og:description" content="Turning 29 expert-consensus recommendations into everyday guidance — a Delphi study at UTAS Nizwa." />
+<meta property="og:url" content="https://sheikha443.github.io/utas-policy-navigator/" />
+<meta property="og:image" content="https://sheikha443.github.io/utas-policy-navigator/assets/utas-logo.png" />
+<meta name="twitter:card" content="summary" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500;1,6..72,600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -21,6 +29,10 @@
   button { font-family: inherit; }
   input, select, textarea { font-family: inherit; }
   ::selection { background: #FC842433; }
+
+  /* keyboard accessibility */
+  :focus-visible { outline: 2.5px solid #FC8424; outline-offset: 3px; border-radius: 6px; }
+  html { scroll-behavior: smooth; }
 
   /* scrollbar */
   ::-webkit-scrollbar { width: 11px; height: 11px; }
@@ -48,6 +60,11 @@
   .float-a { animation: floatY 9s ease-in-out infinite; }
   .float-b { animation: floatY2 11s ease-in-out infinite; }
   .spin-slow { animation: spinSlow 42s linear infinite; }
+
+  /* hero decorations: hide on small screens so they never break the layout */
+  @media (max-width: 760px) {
+    .hero-decor { display: none !important; }
+  }
 
   /* ── shimmer sweep on primary CTA ── */
   @keyframes shimmer { 0% { transform: translateX(-140%) skewX(-20deg); } 60%,100% { transform: translateX(260%) skewX(-20deg); } }
