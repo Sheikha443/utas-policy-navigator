@@ -117,7 +117,7 @@
       ex:"A case study on a Nizwa business beats a generic marketing essay.",
       exAr:"دراسة حالة عن منشأة في نزوى أفضل من مقال تسويق عام." },
 
-    { id:"S15", d:"D4", t:1, short:"No institutional data in external AI", ar:"لا بيانات مؤسسية في المنصات الخارجية",
+    { id:"S15", d:"D3", t:1, short:"No institutional data in external AI", ar:"لا بيانات مؤسسية في المنصات الخارجية",
       plain:"Sharing institutional data, unpublished research, exam materials, or personal information with external AI platforms creates serious security, privacy, and reputational risks.",
       plainAr:"مشاركة البيانات المؤسسية أو البحوث غير المنشورة أو المواد الامتحانية أو المعلومات الشخصية مع منصات الذكاء الاصطناعي الخارجية تخلق مخاطر جسيمة على الأمن والخصوصية والسمعة.",
       ex:"Never upload exam papers or named student records to a public chatbot.",
@@ -138,7 +138,7 @@
       ex:"Categories: public / internal-restricted / confidential-prohibited.",
       exAr:"فئات: عامة / داخلية مقيّدة / سرّية يُمنع رفعها." },
 
-    { id:"S19", d:"D5", t:1, short:"Unified university-wide policy", ar:"سياسة موحّدة على مستوى الجامعة",
+    { id:"S19", d:"D4", t:1, short:"Unified university-wide policy", ar:"سياسة موحّدة على مستوى الجامعة",
       plain:"A unified AI academic integrity policy must apply consistently across all departments, programs, and campuses, defining acceptable use, disclosure, penalties, and appeal rights.",
       plainAr:"سياسة موحّدة للنزاهة الأكاديمية تُطبَّق باتساق عبر جميع الأقسام والبرامج والحرم الجامعية، وتحدد الاستخدام المقبول والإفصاح والعقوبات وحقوق التظلم.",
       ex:"Same rules in Engineering as in Business — no improvisation per department.",
@@ -169,7 +169,7 @@
       ex:"Workshops on redesigning assessments for the AI era.",
       exAr:"ورش عمل حول إعادة تصميم التقييمات لعصر الذكاء الاصطناعي." },
 
-    { id:"S25", d:"D6", t:1, short:"Policy vacuum demands urgent response", ar:"فراغ السياسة يستدعي استجابة عاجلة",
+    { id:"S25", d:"D5", t:1, short:"Policy vacuum demands urgent response", ar:"فراغ السياسة يستدعي استجابة عاجلة",
       plain:"The current absence of a formal institutional AI policy has produced hidden AI use, inconsistent faculty expectations, and uncertainty — an urgent, structured institutional response is needed.",
       plainAr:"أسفر غياب سياسة مؤسسية رسمية عن استخدام خفي وتوقعات متفاوتة وغموض في حدود النزاهة — مما يؤكد الحاجة الملحة إلى استجابة مؤسسية منظمة.",
       ex:"Students already use AI quietly; the policy must catch up now.",
