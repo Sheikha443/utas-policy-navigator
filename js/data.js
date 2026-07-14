@@ -41,8 +41,7 @@
   };
 
   /* ── 29 POLICY STATEMENTS (bilingual, plain-language) ───────
-     Verbatim basis: Round 2 Delphi instrument · Tiers per
-     Round2_Complete_Analysis_CORRECTED.xlsx (Tier2: S7,S11,S17 · Tier3: S14,S23) */
+     Verbatim basis: Round 2 Delphi instrument · Tiers per strict rule on unrounded SD (Tier2: S7,S10,S11,S17 · Tier3: S14,S23) */
   const P = [
     { id:"S1", d:"D1", t:1, short:"AI Declaration in summative work", ar:"إعلان الذكاء الاصطناعي في التقييمات الختامية",
       plain:"Students must include a formal AI Declaration Statement in every summative assessment where generative AI tools were used.",
@@ -91,7 +90,7 @@
       ex:"Departments redesign assessments; the institution provides policy and training.",
       exAr:"تعيد الأقسام تصميم التقييمات؛ وتوفر المؤسسة السياسة والتدريب." },
 
-    { id:"S10", d:"D3", t:1, short:"False mastery risk", ar:"خطر الإتقان الزائف",
+    { id:"S10", d:"D3", t:2, short:"False mastery risk", ar:"خطر الإتقان الزائف",
       plain:"Over-reliance on generative AI risks false mastery: outputs look high-quality while students never develop the competencies, critical thinking, or practical skills being assessed.",
       plainAr:"الاعتماد المفرط على الذكاء الاصطناعي يولّد إتقاناً زائفاً: مخرجات تبدو عالية الجودة دون اكتساب الكفاءات والتفكير النقدي والمهارات التي يقيسها التقييم.",
       ex:"A student submits AI-written code but cannot explain or debug it.",
