@@ -47,13 +47,18 @@ function Hero({ lang, go }) {
   const plx1 = useParallax(20), plx2 = useParallax(-14), plx3 = useParallax(30);
 
   return (
-    <section data-parallax-root style={{ position:"relative", overflow:"hidden", background:HC.navy,
+    <section data-parallax-root style={{ position:"relative", overflow:"hidden",
+      background:`linear-gradient(135deg, ${HC.indigo} 0%, ${HC.navy} 38%, #2B3A9C 66%, ${HC.royal} 100%)`,
       borderRadius:30, padding:"clamp(38px,5.4vw,72px)", color:HC.white, marginBottom:34,
       boxShadow:"0 40px 90px -50px rgba(36,48,144,.85)", isolation:"isolate" }}>
 
+      {/* warm diagonal wash (UTAS orange) */}
+      <div style={{ position:"absolute", inset:0, zIndex:0, pointerEvents:"none",
+        background:`linear-gradient(125deg, transparent 45%, ${HC.rust}33 78%, ${HC.orange}4D 100%)` }} />
+
       {/* aurora glows */}
       <div className="aurora-a" style={{ position:"absolute", insetInlineEnd:"-10%", top:"-30%",
-        width:"60%", height:"120%", background:`radial-gradient(circle, ${HC.orange}40, transparent 62%)`,
+        width:"60%", height:"120%", background:`radial-gradient(circle, ${HC.orange}4D, transparent 62%)`,
         filter:"blur(20px)", pointerEvents:"none", zIndex:0 }} />
       <div className="aurora-b" style={{ position:"absolute", insetInlineStart:"-15%", bottom:"-40%",
         width:"55%", height:"110%", background:`radial-gradient(circle, ${HC.royal}66, transparent 60%)`,
@@ -65,18 +70,20 @@ function Hero({ lang, go }) {
         backgroundSize:"54px 54px", maskImage:"radial-gradient(120% 100% at 50% 0%,#000,transparent 72%)",
         WebkitMaskImage:"radial-gradient(120% 100% at 50% 0%,#000,transparent 72%)" }} />
 
-      {/* floating real logo on frosted chip + abstract orbs */}
-      <div ref={plx1}><Shard cls="float-a" size={isAr ? 96 : 108}
-        style={{ top:"14%", insetInlineEnd:"9%" }} opacity={1} /></div>
-      <Orb cls="float-b" size={120} color={`${HC.amber}55`}
-        style={{ top:"58%", insetInlineEnd:"34%" }} />
-      <Orb cls="spin-slow" size={230} color={`${HC.orange}26`}
-        style={{ bottom:"-16%", insetInlineEnd:"2%" }} />
-      <div ref={plx3} style={{ position:"absolute", bottom:"-14%", insetInlineStart:"6%", zIndex:0 }}>
-        <svg className="spin-slow" width="150" height="150" viewBox="0 0 100 100" fill="none" style={{ opacity:.16 }}>
-          <circle cx="50" cy="50" r="46" stroke={HC.amber} strokeWidth="1" strokeDasharray="3 6"/>
-          <circle cx="50" cy="50" r="30" stroke={HC.orange} strokeWidth="1"/>
-        </svg>
+      {/* floating decorations — hidden on small screens so they never break layout */}
+      <div className="hero-decor" aria-hidden="true">
+        <div ref={plx1}><Shard cls="float-a" size={isAr ? 96 : 108}
+          style={{ top:"14%", insetInlineEnd:"9%" }} opacity={1} /></div>
+        <Orb cls="float-b" size={120} color={`${HC.amber}55`}
+          style={{ top:"58%", insetInlineEnd:"34%" }} />
+        <Orb cls="spin-slow" size={230} color={`${HC.orange}26`}
+          style={{ bottom:"-16%", insetInlineEnd:"2%" }} />
+        <div ref={plx3} style={{ position:"absolute", bottom:"-14%", insetInlineStart:"6%", zIndex:0 }}>
+          <svg className="spin-slow" width="150" height="150" viewBox="0 0 100 100" fill="none" style={{ opacity:.16 }}>
+            <circle cx="50" cy="50" r="46" stroke={HC.amber} strokeWidth="1" strokeDasharray="3 6"/>
+            <circle cx="50" cy="50" r="30" stroke={HC.orange} strokeWidth="1"/>
+          </svg>
+        </div>
       </div>
 
       <div style={{ position:"relative", zIndex:2, maxWidth:680 }}>
